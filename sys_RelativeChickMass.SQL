@@ -232,6 +232,7 @@ ORDER BY tblCaptures.BirdID, usys_qChickMassMeanSdMeasureDay.MeasureDay;
 -- (just remove the first quotation mark to see the SQL code formatted ; but put it back to run the query)
 -- I think the SQL code is correct below, but anyway, doesn't run because access can't get over that 2GB limit
 -- R is simply calling the output of Access work, does not do the computation itself. good to know...
+-- this code would require to have usys_tblRelativeChickMassClasses as a table in SparrowData.mdb (instead of the interface)
 
 usys_qRelativeChickMass = sqlQuery (conDB, "
 

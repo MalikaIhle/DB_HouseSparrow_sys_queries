@@ -82,7 +82,7 @@ INNER JOIN usys_qChickMassAllStats ON tblBroods.BroodRef = usys_qChickMassAllSta
 		
 		
 				
-				-- usys_ChickMassAvgMass
+				-- usys_qChickMassAvgMass
 				
 				TRANSFORM First(usys_qChickMassMeanSdMeasureDay.AvgMass) AS FirstOfAvgMass				-- value: Avg chick mass per rearing brood per age class
 				SELECT usys_qChickMassMeanSdMeasureDay.RearingBrood
@@ -91,7 +91,7 @@ INNER JOIN usys_qChickMassAllStats ON tblBroods.BroodRef = usys_qChickMassAllSta
 				PIVOT usys_qChickMassMeanSdMeasureDay.ClassName;										-- column heading
 			
 			
-				-- usys_ChickMassMinMass
+				-- usys_qChickMassMinMass
 				
 				TRANSFORM First(usys_qChickMassMeanSdMeasureDay.MinMass) AS FirstOfMinMass				-- value: Min chick mass per rearing brood per age class
 				SELECT usys_qChickMassMeanSdMeasureDay.RearingBrood
@@ -100,7 +100,7 @@ INNER JOIN usys_qChickMassAllStats ON tblBroods.BroodRef = usys_qChickMassAllSta
 				PIVOT usys_qChickMassMeanSdMeasureDay.ClassName;										-- column heading
 
 				
-				-- usys_ChickMassMaxMass
+				-- usys_qChickMassMaxMass
 		
 				TRANSFORM First(usys_qChickMassMeanSdMeasureDay.MaxMass) AS FirstOfMaxMass				-- value: Max chick mass per rearing brood per age class
 				SELECT usys_qChickMassMeanSdMeasureDay.RearingBrood
@@ -109,7 +109,7 @@ INNER JOIN usys_qChickMassAllStats ON tblBroods.BroodRef = usys_qChickMassAllSta
 				PIVOT usys_qChickMassMeanSdMeasureDay.ClassName;										-- column heading
 				
 				
-				-- usys_ChickMassAvgClassAge
+				-- usys_qChickMassAvgClassAge
 
 				TRANSFORM First(usys_qChickMassMeanSdMeasureDay.AvgClassAge) AS FirstOfAvgClassAge		-- value: Avg Age per rearing brood per age class --?
 				SELECT usys_qChickMassMeanSdMeasureDay.RearingBrood
@@ -118,7 +118,7 @@ INNER JOIN usys_qChickMassAllStats ON tblBroods.BroodRef = usys_qChickMassAllSta
 				PIVOT usys_qChickMassMeanSdMeasureDay.ClassName;										-- column heading
 
 				
-				-- usys_ChickMassCVMass			
+				-- usys_qChickMassCVMass			
 
 				TRANSFORM First([SdMass]/[AvgMass]) AS Expr1											-- value: CV chick mass per rearing brood per age class
 				SELECT usys_qChickMassMeanSdMeasureDay.RearingBrood
