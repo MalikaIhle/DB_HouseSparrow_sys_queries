@@ -77,7 +77,7 @@ LEFT JOIN usys_qNestVisitsOverlap ON usys_qNestVisitsFirstVisit.DVDRef = usys_qN
 	
 	SELECT 
 	usys_qNestVisitsFemale.DVDRef, 
-	Sum(CalculateNestVisitOverlap([Mstart],[Mend],[FStart],[Fend])) AS VisitOverlap
+	Sum(CalculateNestVisitOverlap([Mstart],[Mend],[FStart],[Fend])) AS VisitOverlap -- see VBA function below
 	
 	FROM usys_qNestVisitsFemale 
 	
@@ -102,3 +102,30 @@ LEFT JOIN usys_qNestVisitsOverlap ON usys_qNestVisitsFirstVisit.DVDRef = usys_qN
 			SELECT tblNestVisits.DVDRef, tblNestVisits.Sex, tblNestVisits.StartTime AS MStart, tblNestVisits.EndTime AS MEnd
 			FROM tblNestVisits
 			WHERE (((tblNestVisits.Sex)=1) AND ((tblNestVisits.State)<>'A')); -- only when feeding
+
+
+
+			-- CalculateNestVisitOverlap VBA function
+			
+/* The query selects records where the male and female times overlap (i.e. 
+where (MStart<FEnd and MEnd>FStart)=true) and then works out that 
+overlap using a VBA function "CalculateNestVisitOverlap": */
+
+Public Function CalculateNestVisitOverlap(Mstart As Single,
+MEnd As Single,
+FStart As Single,
+FEnd As Single) As Single
+     If Mstart < FStart Then
+         If MEnd < FEnd Then
+             CalculateNestVisitOverlap = MEnd - FStart
+         Else
+             CalculateNestVisitOverlap = FEnd - FStart
+         End If
+     Else
+         If MEnd < FEnd Then
+             CalculateNestVisitOverlap = MEnd - Mstart
+         Else
+             CalculateNestVisitOverlap = FEnd - Mstart
+         End If
+     End If
+End Function
