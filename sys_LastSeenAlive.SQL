@@ -4,6 +4,7 @@
 
 -- Notes from Malika --
 -- 24/11/2015 --
+-- updated 02/05/2016
 
 
 -- usys_qLastLiveRecord
@@ -94,13 +95,28 @@ ORDER BY usys_qLastLiveRecordCollection.BirdID;
 									WHERE (((tblBroodEvents.EventDate) Is Not Null) AND ((tblBroodEvents.EventNumber)=0)); -- nest check at first egg
 									
 									
-									-- usys_qBroodEggDateFromFirstSeen
+									/* -- usys_qBroodEggDateFromFirstSeen
 									
 									SELECT tblBroodEvents.BroodRef, tblBroodEvents.EventDate AS LayDate, tblBroodEvents.DateEstimated
 									FROM tblBroodEvents
 									WHERE (((tblBroodEvents.EventDate) Is Not Null) AND ((tblBroodEvents.EventNumber)=0)); 
-									------------------------------------------- I think there is a mistake here, event first seen = 4 !!!!
+									------------------------------------------- I think there is a mistake here, event first seen = 4 !!!! */
 		
+									-- usys_qBroodEggDateFromFirstSeen 20160502
+									SELECT tblBroodEvents.BroodRef, 
+									IIf([usys_qBroodHatchDatesFromTable].[Hatchdate] Is Null,
+									[EventDate]-[EggCount],
+									[Hatchdate]-getDBoption("AvgIncPeriod")) AS LayDate, 
+									IIf([usys_qBroodHatchDatesFromTable].[Hatchdate] Is Null,"EggCount","HatchDate") AS EstimateSource
+									FROM tblBroodEvents 
+									LEFT JOIN usys_qBroodHatchDatesFromTable 
+									ON tblBroodEvents.BroodRef = usys_qBroodHatchDatesFromTable.BroodRef
+									WHERE (((tblBroodEvents.EventDate) Is Not Null) 
+									AND ((tblBroodEvents.EventNumber)=4) 
+									AND ((usys_qBroodHatchDatesFromTable.HatchDate)>=[EventDate])) 
+									OR (((tblBroodEvents.EventNumber)=4) 
+									AND ((tblBroodEvents.EggCount) Is Not Null));
+
 				
 					-- usys_qBroodHatchDate
 

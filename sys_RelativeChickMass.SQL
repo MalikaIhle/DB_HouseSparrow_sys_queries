@@ -12,7 +12,6 @@
 -- I copied manually usys_tblRelativeChickMass from the front end interface to the DB SaprrowData to be used as a table
 -- I transform the output of the query 'sys_EggAndHatchDates' into a table 'usys_tblBirdEggHatchDates' and copied it from the front end interface to the DB SaprrowData to be used as a table
 -- I modified the sys_RelativeChickMass query to be calling the 'usys_tblBirdEggHatchDates' table instead of the 'usys_qBirdEggHatchDates' subquery.
--- beware: this query (and table) EggAndHatchDates potentially have two mistakes mentionned in 'sys_lastSeenAlive'
 --
 -- this is query a trying to get the mass of chicks relative to the average mass of a chick in this social/rearing brood.
 
@@ -143,7 +142,7 @@ ORDER BY tblCaptures.BirdID, usys_qChickMassMeanSdMeasureDay.MeasureDay;
 									4					2				Experiment				
 
 
-		-- usys_qRelativeChickMassAvgMasuresByCapture								-- weird, normally, one individual measured per capture Ref (but there is 23 occurence where there are two entires in tabl Measurement for a same capture ref)
+		-- usys_qRelativeChickMassAvgMasuresByCapture								-- weird, normally, one individual measured per capture Ref (but there is 23 occurence where there are two entries in tblMeasurement for a same capture ref)
 
 		SELECT tblMeasurements.CaptureRef, 
 		Avg(tblMeasurements.Tarsus) AS Tarsus, 										-- mostly empty
